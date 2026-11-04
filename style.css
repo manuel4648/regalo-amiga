@@ -1,0 +1,347 @@
+
+/* =================================
+   1. CONFIGURACIÓN GENERAL
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #101014;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* =================================
+   2. ENCABEZADO
+================================= */
+
+.encabezado {
+    text-align: center;
+    padding: 15px;
+    color: white;
+}
+
+.encabezado h2 {
+    font-size: 15px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+}
+
+.encabezado nav {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.encabezado nav span {
+    color: #eee;
+    font-size: 14px;
+}
+
+/* =================================
+   3. CONTENEDOR PRINCIPAL
+================================= */
+
+.contenedor {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 30px 15px;
+}
+
+/* =================================
+   4. ESCENARIO
+================================= */
+
+.escenario {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    height: 390px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* =================================
+   5. SOBRE
+================================= */
+
+.sobre {
+    position: relative;
+    width: 300px;
+    height: 180px;
+
+    background: #f58ab5;
+    cursor: pointer;
+
+    perspective: 1000px;
+    border-radius: 3px;
+
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3));
+
+    /* Ocultar todo lo que sobresalga */
+    overflow: hidden;
+}
+
+/* =================================
+   6. PARTE TRASERA DEL SOBRE
+================================= */
+
+.parte-trasera {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background: #f8a6c6;
+
+    z-index: 1;
+}
+
+/* =================================
+   7. CARTA
+================================= */
+
+.carta {
+    position: absolute;
+
+    width: 85%;
+    height: 260px;
+
+    left: 7.5%;
+    bottom: 0;
+
+    background: #fff9fc;
+    border-radius: 3px;
+
+    z-index: 2;
+
+    /* Posición inicial: escondida */
+    transform: translateY(80px);
+
+    transition: transform 1.2s ease;
+
+    /* Evitar que el contenido sobresalga */
+    overflow: hidden;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+}
+
+/* =================================
+   8. CONTENIDO DE LA CARTA
+================================= */
+
+.contenido-carta {
+    padding: 20px 17px;
+    text-align: center;
+    color: #a74370;
+}
+
+.saludo {
+    font-size: 12px;
+    margin-bottom: 12px;
+    color: #e45b96;
+}
+
+.contenido-carta h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #d94c88;
+}
+
+.mensaje {
+    font-size: 11px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: #79566a;
+}
+
+.despedida {
+    font-size: 11px;
+    line-height: 1.6;
+    margin-top: 10px;
+    color: #d94c88;
+}
+
+.decoracion-carta {
+    font-size: 23px;
+    margin-top: 8px;
+}
+
+/* =================================
+   9. SOLAPA DEL SOBRE
+================================= */
+
+.solapa {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 100px solid #ed639e;
+
+    transform-origin: top;
+
+    transition: transform 0.7s ease;
+
+    z-index: 5;
+}
+
+/* =================================
+   10. PARTE FRONTAL DEL SOBRE
+================================= */
+
+.frente {
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 150px solid #f7b0cf;
+    border-right: 150px solid #f7b0cf;
+
+    border-top: 90px solid transparent;
+    border-bottom: 90px solid #f58ab5;
+
+    z-index: 4;
+
+    pointer-events: none;
+}
+
+/* =================================
+   11. INSTRUCCIÓN
+================================= */
+
+.instruccion {
+    position: absolute;
+
+    bottom: 10px;
+
+    color: #f5a2c5;
+
+    font-size: 12px;
+    text-align: center;
+
+    width: 100%;
+
+    letter-spacing: 0.5px;
+
+    transition: opacity 0.4s;
+}
+
+/* =================================
+   12. ANIMACIÓN DE APERTURA
+================================= */
+
+/* Sobre abierto */
+.sobre.abierto {
+    overflow: visible;
+}
+
+/* Girar la solapa */
+.sobre.abierto .solapa {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+/* SACAR LA CARTA MÁS ARRIBA */
+.sobre.abierto .carta {
+    transform: translateY(-160px);
+    z-index: 3;
+}
+
+/* =================================
+   13. ROSAS Y PÉTALOS
+================================= */
+
+.rosas {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+    overflow: hidden;
+
+    z-index: 10;
+}
+
+.petalo {
+    position: absolute;
+
+    top: -40px;
+
+    animation: caer linear forwards;
+
+    opacity: 0;
+    user-select: none;
+}
+
+/* Animación de caída */
+@keyframes caer {
+
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(450px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* =================================
+   14. RESPONSIVE PARA CELULARES
+================================= */
+
+@media (max-width: 400px) {
+
+    .sobre {
+        width: 270px;
+        height: 165px;
+    }
+
+    .solapa {
+        border-left-width: 135px;
+        border-right-width: 135px;
+        border-top-width: 90px;
+    }
+
+    .frente {
+        border-left-width: 135px;
+        border-right-width: 135px;
+
+        border-top-width: 82px;
+        border-bottom-width: 83px;
+    }
+
+    .sobre.abierto .carta {
+        transform: translateY(-165px);
+    }
+}
